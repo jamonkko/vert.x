@@ -794,7 +794,9 @@ public class DefaultEventBus implements EventBus {
         };
       }
       handlers.list.add(new HandlerHolder(handler, replyHandler, localOnly, context, timeoutID));
-      if (subs != null && !replyHandler && !localOnly) {
+      // Temporarily fix replyhandlers to propagate to make sockjsbridge <-> sockjsbridge replies to work
+      //if (subs != null && !replyHandler && !localOnly
+      if (subs != null) {
         // Propagate the information
         subs.add(address, serverID, completionHandler);
       } else {
